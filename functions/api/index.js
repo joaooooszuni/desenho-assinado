@@ -1,4 +1,4 @@
-import { gerarDesenho, numeroValido } from "../../lib/desenho.js";
+import { gerarDesenho, numeroValido } from "../desenho.js";
 
 export async function onRequestPost(context) {
   try {

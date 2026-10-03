@@ -1,6 +1,6 @@
 // script.js (Versão com Servidor e Google OAuth)
 
-import { numeroValido } from "../lib/desenho.js"; // Ou mantenha o import conforme a localização da lib
+import { numeroValido } from "../functions/desenho.js"; // Ou mantenha o import conforme a localização da lib
 
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");

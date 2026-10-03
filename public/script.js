@@ -1,6 +1,6 @@
 // script.js (Versão com Servidor e Google OAuth)
 
-import { numeroValido } from "../functions/desenho.js"; // Ou mantenha o import conforme a localização da lib
+import { numeroValido } from "../lib/desenho.js"; // Ou mantenha o import conforme a localização da lib
 
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
@@ -34,7 +34,7 @@ formulario.addEventListener("submit", async (evento) => {
     mensagem.style.color = "blue";
 
     // Enviar o número e o token do Google para a Cloudflare Function (/api)
-    const resposta = await fetch('/api', {
+    const resposta = await fetch('/api/desenho', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

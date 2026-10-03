@@ -5,22 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Desenho Assinado</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Script da API de Autenticação do Google -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <main>
     <header>
       <h1>Desenho Assinado</h1>
-      <p>Escolha um número entre 1 e 100. Cada número gera uma figura diferente, assinada com o seu e-mail.</p>
+      <p>Escolha um número entre 1 e 100. Cada número gera uma figura diferente, assinada com a sua conta Google.</p>
     </header>
+
+    <!-- Secção de Login do Google (Substitui o campo de e-mail manual) -->
+    <section class="auth-section" style="margin-bottom: 20px;">
+      <div id="buttonDiv"></div>
+    </section>
 
     <form id="formulario" novalidate>
       <label for="numero">Número</label>
       <input id="numero" name="numero" type="number" min="1" max="100" step="1" required placeholder="42">
 
-      <label for="email">E-mail</label>
-      <input id="email" name="email" type="email" required placeholder="voce@gmail.com">
+      <!-- O campo de e-mail manual foi removido, pois o login do Google tratará disso -->
 
-      <button type="submit">Desenhar</button>
+      <button type="submit" id="drawBtn">Desenhar</button>
     </form>
 
     <p id="mensagem" role="alert"></p>
@@ -29,6 +35,29 @@
 
     <button id="baixar" type="button" hidden>Baixar SVG</button>
   </main>
+
+  <!-- Script de Inicialização do Google Sign-In -->
+  <script>
+    let userGoogleToken = null;
+
+    function handleCredentialResponse(response) {
+      console.log("Login efetuado com sucesso!");
+      userGoogleToken = response.credential;
+      document.getElementById("mensagem").textContent = "Utilizador autenticado com sucesso via Google!";
+      document.getElementById("mensagem").style.color = "green";
+    }
+
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "493724774366-fns54l1iv3ldk24g9fj4dt8oss98bc50.apps.googleusercontent.com", 
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large", text: "signin_with" }
+      );
+    };
+  </script>
 
   <script type="module" src="script.js"></script>
 </body>

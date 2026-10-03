@@ -1,7 +1,5 @@
 // script.js (Versão com Servidor e Google OAuth)
 
-import { numeroValido } from "../lib/desenho.js"; // Ou mantenha o import conforme a localização da lib
-
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
 const area = document.getElementById("desenho");
@@ -23,7 +21,8 @@ formulario.addEventListener("submit", async (evento) => {
     return;
   }
 
-  if (!numeroValido(numero)) {
+  // Validação simples no frontend
+  if (isNaN(numero) || numero < 1 || numero > 100) {
     mensagem.textContent = "Digite um inteiro entre 1 e 100.";
     mensagem.style.color = "red";
     return;
@@ -33,7 +32,6 @@ formulario.addEventListener("submit", async (evento) => {
     mensagem.textContent = "A gerar desenho no servidor...";
     mensagem.style.color = "blue";
 
-    // Enviar o número e o token do Google para a Cloudflare Function (/api)
     const resposta = await fetch('/api/desenho', {
       method: 'POST',
       headers: {
@@ -43,14 +41,14 @@ formulario.addEventListener("submit", async (evento) => {
       body: JSON.stringify({ numero: numero })
     });
 
-    const resultado = await resposta.json();
-
+    // Se a resposta NÃO for ok (ex: 400 ou 401), o servidor envia JSON com o erro
     if (!resposta.ok) {
-      throw new Error(resultado.error || "Erro ao processar no servidor.");
+      const erroJson = await resposta.json();
+      throw new Error(erroJson.error || "Erro ao processar no servidor.");
     }
 
-    // Exibir o desenho retornado pelo servidor
-    svgAtual = resultado.svg;
+    // Se for sucesso (200), o servidor devolve o SVG puro em texto
+    svgAtual = await resposta.text();
     area.innerHTML = svgAtual;
     botaoBaixar.hidden = false;
     mensagem.textContent = "Desenho gerado e assinado com sucesso pelo servidor!";
@@ -60,7 +58,7 @@ formulario.addEventListener("submit", async (evento) => {
     mensagem.textContent = "Erro: " + erro.message;
     mensagem.style.color = "red";
   }
-});
+}); // <-- Corrigido aqui (fecho correto do addEventListener)
 
 botaoBaixar.addEventListener("click", () => {
   const arquivo = new Blob([svgAtual], { type: "image/svg+xml" });

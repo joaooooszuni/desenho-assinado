@@ -10,3 +10,6 @@ Parse error near line 1: near "tabela": syntax error
   CREATE tabela notas (id INTEGER PRIMARY KEY, aluno TEXT);
          ^--- error here
 Error: Process completed with exit code 1.
+
+
+uhasbduhasbfuaauh

@@ -10,3 +10,11 @@ Parse error near line 1: near "tabela": syntax error
   CREATE tabela notas (id INTEGER PRIMARY KEY, aluno TEXT);
          ^--- error here
 Error: Process completed with exit code 1.
+
+## Tarefa 2: proteger a main com o CI
+- **PR Bloqueado:** [COLE_AQUI_O_LINK_DO_PR_COM_ERRO]
+- **PR Liberado:** [COLE_AQUI_O_LINK_DO_PR_COM_SUCESSO]
+- **Saída do git push recusado:**
+  ```text
+  remote: - Changes must be made through a pull request.
+  remote: - Required status check "verificar" is expected.

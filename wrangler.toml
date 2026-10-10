@@ -1,0 +1,6 @@
+name = "desenho-assinado"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "banco-desenho"
+database_id = "seu-id-do-banco-aqui"

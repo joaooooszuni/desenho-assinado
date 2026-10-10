@@ -12,8 +12,8 @@ Parse error near line 1: near "tabela": syntax error
 Error: Process completed with exit code 1.
 
 ## Tarefa 2: proteger a main com o CI
-- **PR Bloqueado:** [COLE_AQUI_O_LINK_DO_PR_COM_ERRO]
-- **PR Liberado:** [COLE_AQUI_O_LINK_DO_PR_COM_SUCESSO]
+- **PR Bloqueado:** https://github.com/joaooooszuni/desenho-assinado/pull/1
+- **PR Liberado:** https://github.com/joaooooszuni/desenho-assinado/pull/1
 - **Saída do git push recusado:**
   ```text
   remote: - Changes must be made through a pull request.

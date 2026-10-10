@@ -11,5 +11,10 @@ Parse error near line 1: near "tabela": syntax error
          ^--- error here
 Error: Process completed with exit code 1.
 
-
-uhasbduhasbfuaauh
+## Tarefa 2: proteger a main com o CI
+- **PR Bloqueado:** https://github.com/joaooooszuni/desenho-assinado/pull/1
+- **PR Liberado:** https://github.com/joaooooszuni/desenho-assinado/pull/1
+- **Saída do git push recusado:**
+  ```text
+  remote: - Changes must be made through a pull request.
+  remote: - Required status check "verificar" is expected.

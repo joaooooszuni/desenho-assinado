@@ -74,3 +74,4 @@ export async function onRequestPost(context) {
     });
   }
 }
+const stmt = env.DB.prepare(`SELECT * FROM notas WHERE aluno = '${nome}'`);

@@ -24,14 +24,11 @@ jobs:
 
       - name: Monta o prompt
         run: |
-          {
-            echo "Revise o diff de um site com Cloudflare Pages Functions e D1."
-            echo "Aponte, em portugues e em ate 10 itens segredos expostos,"
-            echo "SQL montado por concatenacao em vez de prepare().bind(), e erros de logica."
-            echo '```diff'
-            git diff origin/${{ github.base_ref }}...HEAD | head -c 20000
-            echo '```'
-          } > prompt.txt
+          echo "Revise o diff de um site com Cloudflare Pages Functions e D1." > prompt.txt
+          echo "Aponte em portugues segredos expostos, SQL por concatenacao em vez de prepare().bind(), e erros de logica." >> prompt.txt
+          echo '```diff' >> prompt.txt
+          git diff origin/${{ github.base_ref }}...HEAD | head -n 200 >> prompt.txt
+          echo '```' >> prompt.txt
 
       - id: ia
         uses: actions/ai-inference@v1
@@ -39,7 +36,7 @@ jobs:
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
         with:
           prompt-file: prompt.txt
-          system-prompt: Você é um revisor de código objetivo.
+          system-prompt: "Voce e um revisor de codigo objetivo especializado em seguranca web."
 
       - name: Comenta no PR
         env:

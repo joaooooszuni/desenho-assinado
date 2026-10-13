@@ -27,7 +27,7 @@ jobs:
           echo "Revise o diff de um site com Cloudflare Pages Functions e D1." > prompt.txt
           echo "Aponte em portugues segredos expostos, SQL por concatenacao em vez de prepare().bind(), e erros de logica." >> prompt.txt
           echo '```diff' >> prompt.txt
-          git diff origin/${{ github.base_ref }}...HEAD | head -n 200 >> prompt.txt
+          git diff origin/${{ github.base_ref }}...HEAD | head -c 10000 >> prompt.txt
           echo '```' >> prompt.txt
 
       - id: ia
@@ -35,8 +35,9 @@ jobs:
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
         with:
+          model: gpt-4o
           prompt-file: prompt.txt
-          system-prompt: "Voce e um revisor de codigo objetivo especializado em seguranca web."
+          system-prompt: "Você é um revisor de código objetivo."
 
       - name: Comenta no PR
         env:

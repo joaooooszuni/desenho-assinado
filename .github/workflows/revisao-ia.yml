@@ -26,17 +26,17 @@ jobs:
         run: |
           {
             echo "Revise o diff de um site com Cloudflare Pages Functions e D1."
-            echo "Aponte, em português e em até 10 itens segredos expostos,"
-            echo "SQL montado por concatenação em vez de prepare().bind(), e erros de lógica."
+            echo "Aponte, em portugues e em ate 10 itens segredos expostos,"
+            echo "SQL montado por concatenacao em vez de prepare().bind(), e erros de logica."
             echo '```diff'
             git diff origin/${{ github.base_ref }}...HEAD | head -c 20000
             echo '```'
           } > prompt.txt
 
-        id: ia
+      - id: ia
         uses: actions/ai-inference@v1
         env:
-         COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
         with:
           prompt-file: prompt.txt
           system-prompt: Você é um revisor de código objetivo.

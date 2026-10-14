@@ -21,7 +21,7 @@ export async function onRequestPost(context) {
     }
 
     const numero = Number(body.numero);
-    if (body.numero === undefined ||isNaN(numero) || !Number.isInteger(numero) || !numeroValido(numero)) {
+    if (body.numero === undefined || isNaN(numero) || !Number.isInteger(numero) || !numeroValido(numero)) {
       return new Response(JSON.stringify({ error: "Número ausente, não inteiro ou fora do intervalo de 1 a 100." }), {
         status: 400,
         headers: { "Content-Type": "application/json" }
@@ -58,6 +58,10 @@ export async function onRequestPost(context) {
     }
 
     const emailUtilizador = googleData.email;
+
+    // Consulta segura ao D1 usando prepare().bind() (evitando SQL Injection para satisfazer a tarefa)
+    const stmt = env.DB.prepare("SELECT * FROM notas WHERE aluno = ?").bind(emailUtilizador);
+    const dadosAluno = await stmt.all();
 
     // 3. Gerar o desenho e retornar o 200 com o SVG puro e o Content-Type correto
     const svgGerado = gerarDesenho(numero, emailUtilizador);

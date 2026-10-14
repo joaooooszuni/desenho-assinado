@@ -11,5 +11,20 @@ Parse error near line 1: near "tabela": syntax error
          ^--- error here
 Error: Process completed with exit code 1.
 
+## Tarefa 3: Revisão por IA no Pull Request
 
-uhasbduhasbfuaauh
+- **Dois Comentários da IA:**
+  - **Comentário 1 (Alerta de Vulnerabilidade):** 
+    > *"Revisão Automática de Segurança (IA): Análise concluída. Verifique pontos de SQL Injection (uso de prepare().bind()) e exposição de segredos no diff."*
+  - **Comentário 2 (Após Correção - Synchronize):**
+    > *"Revisão Automática de Segurança (IA): Análise concluída. Verifique pontos de SQL Injection (uso de prepare().bind()) e exposição de segredos no diff."*
+  - **Link do PR com os comentários:** `https://github.com/joaooooszuni/desenho-assinado/pull/2`
+
+- **Erro de Permissão Explicação (`pull-requests: write`):**
+  Ao remover temporariamente a linha `pull-requests: write` do `.github/workflows/revisao-ia.yml`, a execução falhou ao tentar publicar o comentário com o erro:
+  ```text
+  GraphQL: Resource not accessible by integration (addComment)
+  Error: Process completed with exit code 1.
+
+  Crítica à IA :
+A IA foi muito assertiva ao alertar sobre o risco de SQL Injection e indicar a utilização do método seguro .prepare().bind(). Contudo, o aviso genérico para "verificar exposição de segredos" foi irrelevante para este commit, uma vez que o código alterado continha apenas operações de consulta em banco de dados e nenhuma chave ou dado sensível exposto.

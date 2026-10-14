@@ -28,3 +28,16 @@ Error: Process completed with exit code 1.
 
   Crítica à IA :
 A IA foi muito assertiva ao alertar sobre o risco de SQL Injection e indicar a utilização do método seguro .prepare().bind(). Contudo, o aviso genérico para "verificar exposição de segredos" foi irrelevante para este commit, uma vez que o código alterado continha apenas operações de consulta em banco de dados e nenhuma chave ou dado sensível exposto.
+
+
+## Tarefa 4: Migração de Banco de Dados (Cloudflare D1)
+
+Para validar a alteração de esquema no banco de dados SQLite remoto (`banco-desenho`) hospedado no Cloudflare D1, executámos a migração referente ao ficheiro `0002_adiciona_coluna.sql`, responsável por adicionar a coluna `descricao` na tabela `notas`.
+
+Após a aplicação do script SQL, validámos a estrutura final da tabela através do comando `PRAGMA table_info(notas);` na consola do Cloudflare D1.
+
+**Evidência da Estrutura Atualizada:**
+
+![Estrutura da Tabela notas](evidencias/d1-evidencia.png)
+
+Como pode ser observado na imagem acima, a coluna `descricao` do tipo `TEXT` foi adicionada com sucesso ao lado dos campos `id` e `aluno`.

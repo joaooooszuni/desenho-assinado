@@ -12,4 +12,3 @@ Parse error near line 1: near "tabela": syntax error
 Error: Process completed with exit code 1.
 
 
-uhasbduhasbfuaauh

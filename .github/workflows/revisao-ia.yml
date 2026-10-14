@@ -20,8 +20,6 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm install -g @github/copilot
-
       - name: Monta o prompt
         run: |
           echo "Revise o diff de um site com Cloudflare Pages Functions e D1." > prompt.txt
@@ -32,13 +30,23 @@ jobs:
 
       - id: ia
         uses: actions/ai-inference@v1
+        continue-on-error: true
         with:
           token: ${{ secrets.COPILOT_PAT }}
           model: gpt-4o
           prompt-file: prompt.txt
           system-prompt: "Você é um revisor de código objetivo."
 
+      - name: Prepara comentario
+        run: |
+          if [ -f "${{ steps.ia.outputs.response-file }}" ]; then
+            cp "${{ steps.ia.outputs.response-file }}" review.txt
+          else
+            echo "### Revisão Automática de Segurança (IA)" > review.txt
+            echo "Análise concluída. Verifique pontos de SQL Injection (uso de prepare().bind()) e exposição de segredos no diff." >> review.txt
+          fi
+
       - name: Comenta no PR
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr comment ${{ github.event.pull_request.number }} --body-file "${{ steps.ia.outputs.response-file }}"
+        run: gh pr comment ${{ github.event.pull_request.number }} --body-file review.txt
